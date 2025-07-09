@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JVS Footer</title>
+  <style>
+    :root {
+      --apple-footer-gray : #6e6e73;
+      --apple-footer-link : #0066cc;
+      --apple-footer-bg   : #f5f5f7;
+      --apple-footer-font : "SF Pro Text","Myriad Set Pro","SF Pro Icons",
+                            "Apple Legacy Chevron","Helvetica Neue",
+                            Helvetica,Arial,sans-serif;
+      --apple-footer-size : 12px;
+    }
+
+    /* 1 ▸  Hide FormAssembly’s auto footer + supportInfo */
+    .wFormFooter:not(.appleFooter) { display: none !important; }
+    #supportInfo, .supportInfo { display: none !important; }
+
+    /* 2 ▸  Apple footer styles */
+    .appleFooter {
+      width: 100vw !important;
+      position: relative !important;
+      left: 50% !important; right: 50% !important;
+      margin-left: -50vw !important; margin-right: -50vw !important;
+
+      background: var(--apple-footer-bg) !important;
+      font: var(--apple-footer-size)/1.5 var(--apple-footer-font) !important;
+      color: var(--apple-footer-gray) !important;
+
+      box-sizing: border-box !important;
+      border: none !important; padding: 0 !important; z-index: 10 !important;
+    }
+
+    .appleFooter-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 24px;
+      box-sizing: border-box;
+    }
+
+    /* “More ways to shop” */
+    .appleFooter-shop {
+      padding: 18px 0 8px;
+    }
+
+    .appleFooter-shop a {
+      color: var(--apple-footer-link) !important;
+      text-decoration: underline !important;
+    }
+
+    .appleFooter-shop a:hover,
+    .appleFooter-shop a:focus {
+      color: #0071e3 !important;
+    }
+
+    /* Legal row */
+    .appleFooter-legal-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0 18px;
+      padding-bottom: 16px;
+      min-height: 32px;
+    }
+
+    .appleFooter-legal-row span,
+    .appleFooter-legal-row a {
+      white-space: nowrap;
+      text-decoration: none !important;
+      color: inherit !important;
+    }
+
+    .appleFooter-legal-row a {
+      padding: 0 4px;
+      transition: color 0.2s;
+    }
+
+    .appleFooter-legal-row a:hover,
+    .appleFooter-legal-row a:focus {
+      text-decoration: underline !important;
+      color: #0071e3 !important;
+    }
+
+    .appleFooter-legal-row .divider {
+      margin: 0 3px;
+    }
+
+    .appleFooter-country {
+      margin-left: auto;
+    }
+
+    .appleFooter-country a {
+      text-decoration: underline !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .appleFooter-inner {
+        padding: 0 10px;
+      }
+
+      .appleFooter-legal-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px 0;
+        padding-bottom: 16px;
+      }
+
+      .appleFooter-country {
+        margin-left: 0;
+        margin-top: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div aria-label="Site footer" id="appleFooter" class="wFormFooter appleFooter">
+    <div class="appleFooter-inner">
+      <div class="appleFooter-shop">
+        <span>More ways to contribute:</span>
+        <span>Find a </span>
+        <a rel="noopener" target="_blank" href="https://maps.app.goo.gl/vGu7n8SUwua6DaNA9">JVS</a>
+        <span> near you.</span>
+        <span>Or call 415-391-3600.</span>
+      </div>
+
+      <div class="appleFooter-legal-row">
+        <span>Copyright © 2025 JVS org. All rights reserved.</span>
+        <span class="divider">|</span>
+        <a rel="noopener" target="_blank" href="https://jvs.org/privacy-policy/">Privacy Policy</a>
+        <span class="divider">|</span>
+        <a rel="noopener" target="_blank" href="https://jvs.org/terms-and-conditions/">Terms of Use</a>
+        <span class="divider">|</span>
+        <a rel="noopener" target="_blank" href="https://www.classy.org/give/389783/#!/donation/checkout">Donate</a>
+        <span class="divider">|</span>
+        <a rel="noopener" target="_blank" href="https://jvs.org/career-training/">Career Training</a>
+        <span class="divider">|</span>
+        <a rel="noopener" target="_blank" href="https://jvs.org/community-impact/">Community</a>
+
+        <span class="appleFooter-country">
+          <span>JVS Bay Area</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const hideSupportInfo = () => {
+        document.querySelectorAll('#supportInfo,.supportInfo')
+                .forEach(el => el.style.display = 'none');
+      };
+
+      const placeFooter = () => {
+        const footer = document.getElementById('appleFooter');
+        if (!footer) return;
+        const container = document.querySelector('.wFormContainer') || document.body;
+        if (container && footer.parentNode !== container) {
+          container.appendChild(footer);
+        }
+        hideSupportInfo();
+      };
+
+      document.addEventListener('DOMContentLoaded', placeFooter);
+      window.addEventListener('load', placeFooter);
+
+      /* Re-run if FA re-renders after validation */
+      new MutationObserver(placeFooter)
+        .observe(document.body, { childList: true, subtree: true });
+    })();
+  </script>
+</body>
+</html>
